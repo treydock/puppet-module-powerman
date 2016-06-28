@@ -4,6 +4,7 @@ class powerman(
     $powerman_server = hiera('powerman::service::hostname',$powerman::params::power_server),
     $powerman_port = hiera('powerman::service::port',$powerman::params::powerman_port),
     $loopback = hiera('powerman::cfg::loopback',$powerman::params::loopback),
+    $tcpwrappers = hiera('powerman::cfg::tcpwrappers',$powerman::params::tcpwrappers),
     $cfgfile = hiera('powerman::cfg::cfgfile',$powerman::params::cfgfile),
     $driver_dir = hiera('powerman::cfg::driver_dir',$powerman::params::driver_dir),
     $driver_list = hiera('powerman::cfg::driver_list',$powerman::params::driver_list),

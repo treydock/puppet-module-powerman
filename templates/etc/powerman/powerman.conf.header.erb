@@ -6,6 +6,11 @@ listen "127.0.0.1:<%= @powerman_port %>"
 <% else -%>
 listen "<%= @powerman_server %>:<%= @powerman_port %>"
 <% end -%>
+<% if @tcpwrappers -%>
+tcpwrappers yes
+<% else -%>
+#tcpwrappers yes
+<% end -%>
 
 # device drivers
 <% @driver_list.sort.each do |driver| -%>
