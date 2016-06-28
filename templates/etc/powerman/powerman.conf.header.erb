@@ -14,6 +14,6 @@ tcpwrappers yes
 
 # device drivers
 <% @driver_list.sort.each do |driver| -%>
-include "<%= @driver_dir %>/<%= $driver %>.dev"
+include "<%= @driver_dir %>/<%= driver %>.dev"
 <% end -%>
 
