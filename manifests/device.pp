@@ -3,7 +3,7 @@ define powerman::device(
     $endpoint,
     $flags = '',
     $cfgfile = hiera('powerman::cfg::cfgfile',$powerman::params::cfgfile),
-    order = '25',
+    $order = '25',
   ) {
   concat::fragment { "powerman.conf.device.$name":
     target  => $cfgfile,
