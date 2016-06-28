@@ -1,7 +1,7 @@
 class powerman(
     $service_enable = hiera('powerman::service::enable',$powerman::params::service_enable),
     $service_ensure = hiera('powerman::service::ensure',$powerman::params::service_ensure),
-    $powerman_server = hiera('powerman::service::hostname',$powerman::params::power_server),
+    $powerman_server = hiera('powerman::service::hostname',$powerman::params::powerman_server),
     $powerman_port = hiera('powerman::service::port',$powerman::params::powerman_port),
     $loopback = hiera('powerman::cfg::loopback',$powerman::params::loopback),
     $tcpwrappers = hiera('powerman::cfg::tcpwrappers',$powerman::params::tcpwrappers),
