@@ -8,7 +8,15 @@ class powerman(
     $cfgfile = hiera('powerman::cfg::cfgfile',$powerman::params::cfgfile),
     $driver_dir = hiera('powerman::cfg::driver_dir',$powerman::params::driver_dir),
     $driver_list = hiera('powerman::cfg::driver_list',$powerman::params::driver_list),
+    $aliases  = {},
+    $devices  = {},
+    $nodes    = {},
   ) inherits powerman::params {
+
+  validate_hash($aliases)
+  validate_hash($devices)
+  validate_hash($nodes)
+
   # packages
   package { "powerman":
     ensure => present,
@@ -59,4 +67,9 @@ class powerman(
     group   => root,
     mode    => '0644',
   }
+
+  create_resources('powerman::alias', $aliases)
+  create_resources('powerman::device', $devices)
+  create_resources('powerman::node', $nodes)
+
 }
