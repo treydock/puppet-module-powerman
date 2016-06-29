@@ -32,7 +32,7 @@ class powerman(
   concat::fragment { "powerman.conf.header":
     target  => $cfgfile,
     content => template("powerman/etc/powerman/powerman.conf.header.erb"),
-    order   => 01,
+    order   => '01',
   }
 
   # services
@@ -42,5 +42,21 @@ class powerman(
     require   => [File[$driver_dir],
                   Concat[$cfgfile]],
     subscribe => Concat[$cfgfile],
+  }
+
+  # environment files
+  file { "/etc/profile.d/powerman.sh":
+    ensure  => present,
+    content => template("powerman/etc/profile.d/powerman.sh.erb"),
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+  }
+  file { "/etc/profile.d/powerman.csh":
+    ensure  => present,
+    content => template("powerman/etc/profile.d/powerman.csh.erb"),
+    owner   => root,
+    group   => root,
+    mode    => '0644',
   }
 }
