@@ -1,6 +1,7 @@
 class powerman(
     $service_enable = hiera('powerman::service::enable',$powerman::params::service_enable),
     $service_ensure = hiera('powerman::service::ensure',$powerman::params::service_ensure),
+    $listen = undef,
     $powerman_server = hiera('powerman::service::hostname',$powerman::params::powerman_server),
     $powerman_port = hiera('powerman::service::port',$powerman::params::powerman_port),
     $loopback = hiera('powerman::cfg::loopback',$powerman::params::loopback),
@@ -16,6 +17,8 @@ class powerman(
   validate_hash($aliases)
   validate_hash($devices)
   validate_hash($nodes)
+
+  $_listen = pick($listen, $powerman_server)
 
   # packages
   package { "powerman":
