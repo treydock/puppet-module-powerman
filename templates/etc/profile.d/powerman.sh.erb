@@ -2,4 +2,9 @@
 # <%= @servername %>:<%= @__file__ %>
 export POWERMAN_HOST=<%= @powerman_server %>
 export POWERMAN_PORT=<%= @powerman_port %>
-
+function powerman() {
+  /usr/bin/powerman -h $POWERMAN_HOST:$POWERMAN_PORT $*
+}
+function pm() {
+  /usr/bin/pm -h $POWERMAN_HOST:$POWERMAN_PORT $*
+}
