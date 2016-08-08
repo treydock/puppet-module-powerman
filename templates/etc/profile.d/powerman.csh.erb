@@ -1,0 +1,6 @@
+######### Managed by Puppet #########
+# <%= @servername %>:<%= @__file__ %>
+setenv POWERMAN_HOST <%= @powerman_server %>
+setenv POWERMAN_PORT <%= @powerman_port %>
+alias powerman "/usr/bin/powerman -h ${POWERMAN_HOST}:${POWERMAN_PORT} \!*"
+alias pm "/usr/bin/pm -h ${POWERMAN_HOST}:${POWERMAN_PORT} \!*"

@@ -1,0 +1,19 @@
+######### Managed by Puppet #########
+# <%= @servername %>:<%= @__file__ %>
+# powerman server config
+<% if @loopback -%>
+listen "127.0.0.1:<%= @powerman_port %>"
+<% else -%>
+listen "<%= @_listen %>:<%= @powerman_port %>"
+<% end -%>
+<% if @tcpwrappers -%>
+tcpwrappers yes
+<% else -%>
+#tcpwrappers yes
+<% end -%>
+
+# device drivers
+<% @driver_list.sort.each do |driver| -%>
+include "<%= @driver_dir %>/<%= driver %>.dev"
+<% end -%>
+
