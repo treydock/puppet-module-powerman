@@ -1,5 +1,5 @@
 ######### Managed by Puppet #########
-# <%= @servername %>:<%= @__file__ %>
+# <%= scope['settings::server'] %>:<%= @__file__ %>
 # powerman server config
 <% if @loopback -%>
 listen "127.0.0.1:<%= @powerman_port %>"

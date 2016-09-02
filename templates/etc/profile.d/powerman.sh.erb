@@ -1,5 +1,5 @@
 ######### Managed by Puppet #########
-# <%= @servername %>:<%= @__file__ %>
+# <%= scope['settings::server'] %>:<%= @__file__ %>
 export POWERMAN_HOST=<%= @powerman_server %>
 export POWERMAN_PORT=<%= @powerman_port %>
 function powerman() {

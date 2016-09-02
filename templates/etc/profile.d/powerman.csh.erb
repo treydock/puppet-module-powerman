@@ -1,5 +1,5 @@
 ######### Managed by Puppet #########
-# <%= @servername %>:<%= @__file__ %>
+# <%= scope['settings::server'] %>:<%= @__file__ %>
 setenv POWERMAN_HOST <%= @powerman_server %>
 setenv POWERMAN_PORT <%= @powerman_port %>
 alias powerman "/usr/bin/powerman -h ${POWERMAN_HOST}:${POWERMAN_PORT} \!*"
