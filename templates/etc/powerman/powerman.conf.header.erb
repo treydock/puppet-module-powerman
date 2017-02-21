@@ -1,5 +1,6 @@
 ######### Managed by Puppet #########
-# <%= scope['settings::server'] %>:<%= @__file__ %>
+# <%= scope['settings::server'] %>:<%= @__file__.gsub(/\/environments\/([a-zA-Z0-9_\-]+)\//, "/environments/$::environment/") %>
+
 # powerman server config
 <% if @loopback -%>
 listen "127.0.0.1:<%= @powerman_port %>"
