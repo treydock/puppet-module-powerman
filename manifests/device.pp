@@ -1,13 +1,16 @@
-define powerman::device(
-    $driver,
-    $endpoint,
-    $flags = '',
-    $cfgfile = hiera('powerman::cfg::cfgfile',$powerman::params::cfgfile),
-    $order = '25',
-  ) {
-  concat::fragment { "powerman.conf.device.$name":
+define powerman::device (
+  String $driver,
+  String $endpoint,
+  String $flags = '',
+  String $order = '25',
+) {
+
+  include powerman
+  $cfgfile = $powerman::cfgfile
+  
+  concat::fragment { "powerman.conf.device.${name}":
     target  => $cfgfile,
-    content => template("powerman/etc/powerman/device.erb"),
+    content => template('powerman/etc/powerman/device.erb'),
     order   => $order,
   }
 }

@@ -1,12 +1,15 @@
 define powerman::node (
-    $device,
-    $port = '',
-    $cfgfile = hiera('powerman::cfg::cfgfile',$powerman::params::cfgfile),
-    $order = '50',
-  ) {
+  String $device,
+  String $port = '',
+  String $order = '50',
+) {
+
+  include powerman
+  $cfgfile = $powerman::cfgfile
+
   concat::fragment { "powerman.conf.node.$name":
     target  => $cfgfile,
-    content => template("powerman/etc/powerman/node.erb"),
+    content => template('powerman/etc/powerman/node.erb'),
     order   => $order,
   }
 }
