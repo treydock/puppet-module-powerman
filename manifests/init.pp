@@ -49,8 +49,8 @@ class powerman(
     concat { $cfgfile:
       ensure    => 'present',
       owner     => 'root',
-      group     => 'root',
-      mode      => '0644',
+      group     => 'daemon',
+      mode      => '0640',
       show_diff => false,
       require   => Package['powerman'],
     }
