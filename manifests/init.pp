@@ -47,11 +47,12 @@ class powerman(
       require => Package['powerman'],
     }
     concat { $cfgfile:
-      ensure => 'present',
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0644',
-      require => Package['powerman'],
+      ensure    => 'present',
+      owner     => 'root',
+      group     => 'root',
+      mode      => '0644',
+      show_diff => false,
+      require   => Package['powerman'],
     }
     concat::fragment { 'powerman.conf.header':
       target  => $cfgfile,
