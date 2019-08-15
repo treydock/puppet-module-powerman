@@ -1,14 +1,7 @@
 require 'spec_helper'
 
 describe 'powerman' do
-  on_supported_os({
-    :supported_os => [
-      {
-        "operatingsystem" => "RedHat",
-        "operatingsystemrelease" => ["6", "7"],
-      }
-    ]
-  }).each do |os, facts|
+  on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) do
         facts
@@ -30,8 +23,8 @@ describe 'powerman' do
         is_expected.to contain_concat('/etc/powerman/powerman.conf').with({
           :ensure  => 'present',
           :owner   => 'root',
-          :group   => 'root',
-          :mode    => '0644',
+          :group   => 'daemon',
+          :mode    => '0640',
           :require => 'Package[powerman]'
         })
       end

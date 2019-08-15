@@ -22,9 +22,9 @@ describe 'powerman class:' do
 
     describe file('/etc/powerman/powerman.conf') do
       it { should be_file }
-      it { should be_mode 644 }
+      it { should be_mode 640 }
       it { should be_owned_by 'root' }
-      it { should be_grouped_into 'root' }
+      it { should be_grouped_into 'daemon' }
     end
   end
 end
