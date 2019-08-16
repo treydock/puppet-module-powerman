@@ -5,6 +5,14 @@ describe 'powerman class:' do
     it 'runs successfully' do
       pp = <<-EOS
       class { 'powerman': }
+      powerman::device { 'bmc-compute01-ipmi':
+        driver   => 'ipmipower',
+        endpoint => 'ipmipower -u admin -p foo -h bmc-compute01 |&'
+      }
+      powerman::node { 'compute01':
+        device => 'bmc-compute01-ipmi',
+        port   => 'bmc-compute01',
+      }
       EOS
 
       apply_manifest(pp, catch_failures: true)
