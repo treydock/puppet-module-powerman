@@ -7,6 +7,15 @@ describe 'powerman' do
         facts
       end
 
+      let(:user) do
+        case facts[:os]['family']
+        when 'Debian'
+          'powerman'
+        when 'RedHat'
+          'daemon'
+        end
+      end
+
       it { is_expected.to compile.with_all_deps }
 
       it { is_expected.to create_class('powerman') }
@@ -18,16 +27,16 @@ describe 'powerman' do
 
       it do
         is_expected.to contain_concat('/etc/powerman/powerman.conf').with(ensure: 'present',
-                                                                          owner: 'root',
-                                                                          group: 'daemon',
+                                                                          owner: user,
+                                                                          group: 'root',
                                                                           mode: '0640',
                                                                           require: 'Package[powerman]')
       end
 
       it do
         is_expected.to contain_file('/var/run/powerman').with(ensure: 'directory',
-                                                              owner: 'daemon',
-                                                              group: 'daemon',
+                                                              owner: user,
+                                                              group: 'root',
                                                               mode: '0755',
                                                               require: 'Package[powerman]',
                                                               before: 'Service[powerman]')
