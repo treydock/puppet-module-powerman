@@ -89,8 +89,8 @@ class powerman (
     }
     concat { $cfgfile:
       ensure    => 'present',
-      owner     => 'root',
-      group     => 'daemon',
+      owner     => $user,
+      group     => 'root',
       mode      => '0640',
       show_diff => false,
       require   => Package['powerman'],
@@ -114,7 +114,7 @@ class powerman (
     file { $pid_dir:
       ensure  => 'directory',
       owner   => $user,
-      group   => $user,
+      group   => 'root',
       mode    => '0755',
       require => Package['powerman'],
       before  => Service['powerman'],

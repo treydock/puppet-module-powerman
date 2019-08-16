@@ -1,6 +1,15 @@
 require 'spec_helper_acceptance'
 
 describe 'powerman class:' do
+  let(:user) do
+    case fact('os.family')
+    when 'Debian'
+      'powerman'
+    when 'RedHat'
+      'daemon'
+    end
+  end
+
   context 'default parameters' do
     it 'runs successfully' do
       pp = <<-EOS
@@ -31,8 +40,8 @@ describe 'powerman class:' do
     describe file('/etc/powerman/powerman.conf') do
       it { is_expected.to be_file }
       it { is_expected.to be_mode 640 }
-      it { is_expected.to be_owned_by 'root' }
-      it { is_expected.to be_grouped_into 'daemon' }
+      it { is_expected.to be_owned_by user }
+      it { is_expected.to be_grouped_into 'root' }
     end
   end
 end
