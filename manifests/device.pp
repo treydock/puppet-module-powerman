@@ -1,15 +1,23 @@
+# @summary Manage powerman device
+#
+# @param driver
+#   The device driver
+# @param endpoint
+#   Device endpoint
+# @param flags
+# @param order
+#   Order in powerman.conf
 define powerman::device (
   String $driver,
   String $endpoint,
-  String $flags = '',
+  Optional[String] $flags = undef,
   String $order = '25',
 ) {
 
   include powerman
-  $cfgfile = $powerman::cfgfile
-  
+
   concat::fragment { "powerman.conf.device.${name}":
-    target  => $cfgfile,
+    target  => $powerman::cfgfile,
     content => template('powerman/etc/powerman/device.erb'),
     order   => $order,
   }

@@ -1,21 +1,55 @@
-class powerman(
+# @summary Manage powerman
+#
+# @example
+#   include ::powerman
+#
+# @param ensure
+#   Module ensure property
+# @param manage_epel
+#   Boolean that determines if EPEL repo should be managed
+# @param server
+#   Boolean that sets host to act as powerman server
+# @param listen
+#   Address to listen on
+# @param powerman_server
+#   Hostname of powerman server
+# @param powerman_port
+#   The port of powerman server
+# @param tcpwrappers
+#   Enable tcpwrappers support
+# @param cfgfile
+#   Path to powerman.conf
+# @param driver_dir
+#   Driver directory
+# @param driver_list
+#   List of drivers to load
+# @param aliases
+#   Hash of aliases to pass to `powerman::alias`
+# @param devices
+#   Hash of devices to pass to `powerman::device`
+# @param nodes
+#   Hash of nodes to pass to `powerman::node`
+# @param pid_dir
+#   Directory for PID file
+# @param user
+#   User running powerman service
+class powerman (
   Enum['present', 'absent'] $ensure = 'present',
+  Boolean $manage_epel = true,
   Boolean $server = true,
-  Boolean $client = true,
-  Optional[String] $listen = undef,
-  String $powerman_server = $::fqdn,
-  Integer $powerman_port = 10101,
-  Boolean $loopback = false,
-  Boolean $tcpwrappers = false,
-  String $cfgfile = '/etc/powerman/powerman.conf',
-  String $driver_dir = '/etc/powerman',
+  Stdlib::IP::Address $listen = '127.0.0.1',
+  Stdlib::Host $powerman_server = $::fqdn,
+  Stdlib::Port $powerman_port = 10101,
+  Optional[Boolean] $tcpwrappers = undef,
+  Stdlib::Absolutepath $cfgfile = '/etc/powerman/powerman.conf',
+  Stdlib::Absolutepath $driver_dir = '/etc/powerman',
   Array $driver_list = ['powerman','ipmipower'],
   Hash $aliases  = {},
   Hash $devices  = {},
   Hash $nodes    = {},
-) inherits powerman::params {
-
-  $_listen = pick($listen, $powerman_server)
+  Stdlib::Absolutepath $pid_dir = '/var/run/powerman',
+  String $user = 'daemon',
+) {
 
   if $ensure == 'present' {
     $package_ensure = 'present'
@@ -32,6 +66,13 @@ class powerman(
     $file_ensure    = 'absent'
     $service_ensure = 'stopped'
     $service_enable = false
+  }
+
+  if dig($facts, 'os', 'family') == 'RedHat' {
+    if $manage_epel {
+      include ::epel
+      Yumrepo['epel'] -> Package['powerman']
+    }
   }
 
   package { 'powerman':
@@ -59,11 +100,26 @@ class powerman(
       content => template('powerman/etc/powerman/powerman.conf.header.erb'),
       order   => '01',
     }
-    create_resources('powerman::alias', $aliases)
-    create_resources('powerman::device', $devices)
-    create_resources('powerman::node', $nodes)
+    $aliases.each |$name, $alias| {
+      powerman::alias { $name: * => $alias }
+    }
+    $devices.each |$name, $device| {
+      powerman::device { $name: * => $device }
+    }
+    $nodes.each |$name, $node| {
+      powerman::node { $name: * => $node }
+    }
 
-    # services
+    # Hack because EPEL RPM missing PID dir
+    file { $pid_dir:
+      ensure  => 'directory',
+      owner   => $user,
+      group   => $user,
+      mode    => '0755',
+      require => Package['powerman'],
+      before  => Service['powerman'],
+    }
+
     service { 'powerman':
       ensure     => $service_ensure,
       enable     => $service_enable,

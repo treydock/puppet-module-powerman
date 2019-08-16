@@ -1,15 +1,63 @@
 {
-  "name": "osc-powerman",
-  "version": "0.0.1",
-  "author": "osc",
+  "name": "treydock-powerman",
+  "version": "0.1.0",
+  "author": "treydock",
   "summary": "powerman Puppet module",
-  "license": "Apache 2.0",
-  "source": "git://github.com/osc/puppet-powerman.git",
-  "issues_url": "https://github.com/osc/puppet-powerman/issues",
-  "project_page": "https://github.com/osc/puppet-powerman",
+  "license": "Apache-2.0",
+  "source": "https://github.com/treydock/puppet-module-powerman",
+  "project_page": "https://github.com/treydock/puppet-module-powerman",
+  "issues_url": "https://github.com/treydock/puppet-module-powerman/issues",
   "dependencies": [
-    { "name": "puppetlabs/stdlib", "version_range": ">= 3.2.0 <5.0.0" },
-    { "name": "puppetlabs/concat", "version_range": ">= 1.0.0 <3.0.0" }
-  ]
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.25.0 <7.0.0"
+    },
+    {
+      "name": "puppetlabs/concat",
+      "version_requirement": ">= 4.0.0 <7.0.0"
+    },
+    {
+      "name": "stahnma/epel",
+      "version_requirement": ">= 1.0.0 <2.0.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "OracleLinux",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Scientific",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 5.0.0 < 7.0.0"
+    }
+  ],
+  "pdk-version": "1.10.0",
+  "template-url": "https://github.com/treydock/pdk-templates.git#master",
+  "template-ref": "heads/master-0-g68ecb62"
 }
-

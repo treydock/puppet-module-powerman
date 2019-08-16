@@ -2,16 +2,10 @@
 # <%= scope['settings::server'] %>:<%= @__file__.gsub(/\/environments\/([a-zA-Z0-9_\-]+)\//, "/environments/$::environment/") %>
 
 # powerman server config
-<% if @loopback -%>
-listen "127.0.0.1:<%= @powerman_port %>"
-<% else -%>
-listen "<%= @_listen %>:<%= @powerman_port %>"
-<% end -%>
-<% if @tcpwrappers -%>
+listen "<%= @listen %>:<%= @powerman_port %>"
+<%- if @tcpwrappers -%>
 tcpwrappers yes
-<% else -%>
-#tcpwrappers yes
-<% end -%>
+<%- end -%>
 
 # device drivers
 <% @driver_list.sort.each do |driver| -%>
