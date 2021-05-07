@@ -5,6 +5,7 @@
 # @param endpoint
 #   Device endpoint
 # @param flags
+#   Device flags
 # @param order
 #   Order in powerman.conf
 define powerman::device (

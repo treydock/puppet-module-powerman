@@ -1,7 +1,7 @@
 # @summary Manage powerman
 #
 # @example
-#   include ::powerman
+#   include powerman
 #
 # @param ensure
 #   Module ensure property
@@ -38,7 +38,7 @@ class powerman (
   Boolean $manage_epel = true,
   Boolean $server = true,
   Stdlib::IP::Address $listen = '127.0.0.1',
-  Stdlib::Host $powerman_server = $::fqdn,
+  Stdlib::Host $powerman_server = $facts['networking']['fqdn'],
   Stdlib::Port $powerman_port = 10101,
   Optional[Boolean] $tcpwrappers = undef,
   Stdlib::Absolutepath $cfgfile = '/etc/powerman/powerman.conf',
@@ -53,24 +53,27 @@ class powerman (
 
   if $ensure == 'present' {
     $package_ensure = 'present'
-    $file_ensure    = 'file'
+    $cfg_ensure     = 'present'
     if $server {
+      $env_ensure     = 'absent'
       $service_ensure = 'running'
       $service_enable = true
     } else {
+      $env_ensure     = 'file'
       $service_ensure = 'stopped'
       $service_enable = false
     }
   } else {
     $package_ensure = 'absent'
-    $file_ensure    = 'absent'
+    $cfg_ensure     = 'absent'
+    $env_ensure     = 'absent'
     $service_ensure = 'stopped'
     $service_enable = false
   }
 
   if dig($facts, 'os', 'family') == 'RedHat' {
     if $manage_epel {
-      include ::epel
+      include epel
       Yumrepo['epel'] -> Package['powerman']
     }
   }
@@ -79,7 +82,7 @@ class powerman (
     ensure => $package_ensure,
   }
 
-  if $server {
+  if $server and $ensure == 'present' {
     file { $driver_dir:
       ensure  => 'directory',
       owner   => 'root',
@@ -87,14 +90,21 @@ class powerman (
       mode    => '0755',
       require => Package['powerman'],
     }
+  }
+
+  if $server or $ensure == 'absent' {
     concat { $cfgfile:
-      ensure    => 'present',
+      ensure    => $cfg_ensure,
       owner     => $user,
       group     => 'root',
       mode      => '0640',
       show_diff => false,
       require   => Package['powerman'],
+      notify    => Service['powerman'],
     }
+  }
+
+  if $server and $ensure == 'present' {
     concat::fragment { 'powerman.conf.header':
       target  => $cfgfile,
       content => template('powerman/etc/powerman/powerman.conf.header.erb'),
@@ -110,7 +120,6 @@ class powerman (
       powerman::node { $name: * => $node }
     }
 
-    # Hack because EPEL RPM missing PID dir
     file { $pid_dir:
       ensure  => 'directory',
       owner   => $user,
@@ -119,35 +128,29 @@ class powerman (
       require => Package['powerman'],
       before  => Service['powerman'],
     }
+  }
 
-    service { 'powerman':
-      ensure     => $service_ensure,
-      enable     => $service_enable,
-      hasstatus  => true,
-      hasrestart => true,
-      subscribe  => Concat[$cfgfile],
-    }
-  } else {
-    service { 'powerman':
-      ensure  => $service_ensure,
-      enable  => $service_enable,
-      require => Package['powerman'],
-    }
+  service { 'powerman':
+    ensure     => $service_ensure,
+    enable     => $service_enable,
+    hasstatus  => true,
+    hasrestart => true,
+    require    => Package['powerman'],
+  }
 
-    file { '/etc/profile.d/powerman.sh':
-      ensure  => $file_ensure,
-      content => template('powerman/etc/profile.d/powerman.sh.erb'),
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0644',
-    }
-    file { '/etc/profile.d/powerman.csh':
-      ensure  => $file_ensure,
-      content => template('powerman/etc/profile.d/powerman.csh.erb'),
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0644',
-    }
+  file { '/etc/profile.d/powerman.sh':
+    ensure  => $env_ensure,
+    content => template('powerman/etc/profile.d/powerman.sh.erb'),
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+  }
+  file { '/etc/profile.d/powerman.csh':
+    ensure  => $env_ensure,
+    content => template('powerman/etc/profile.d/powerman.csh.erb'),
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
   }
 
 }

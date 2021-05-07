@@ -1,7 +1,7 @@
 # puppet-module-powerman
 
 [![Puppet Forge](http://img.shields.io/puppetforge/v/treydock/powerman.svg)](https://forge.puppetlabs.com/treydock/powerman)
-[![Build Status](https://travis-ci.org/osc/puppet-module-powerman.png)](https://travis-ci.org/osc/puppet-module-powerman)
+[![CI Status](https://github.com/treydock/puppet-module-powerman/workflows/CI/badge.svg?branch=master)](https://github.com/treydock/puppet-module-powerman/actions?query=workflow%3ACI)
 
 ####Table of Contents
 
