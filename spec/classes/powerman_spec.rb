@@ -16,6 +16,15 @@ describe 'powerman' do
         end
       end
 
+      let(:group) do
+        case facts[:os]['family']
+        when 'Debian'
+          'root'
+        when 'RedHat'
+          'daemon'
+        end
+      end
+
       it { is_expected.to compile.with_all_deps }
 
       it { is_expected.to create_class('powerman') }
@@ -49,7 +58,7 @@ describe 'powerman' do
         is_expected.to contain_file('/var/run/powerman').with(
           ensure: 'directory',
           owner: user,
-          group: 'root',
+          group: group,
           mode: '0755',
           require: 'Package[powerman]',
           before: 'Service[powerman]',
