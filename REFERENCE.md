@@ -47,6 +47,7 @@ The following parameters are available in the `powerman` class:
 * [`nodes`](#nodes)
 * [`pid_dir`](#pid_dir)
 * [`user`](#user)
+* [`group`](#group)
 
 ##### <a name="ensure"></a>`ensure`
 
@@ -165,6 +166,14 @@ Default value: `'/var/run/powerman'`
 Data type: `String`
 
 User running powerman service
+
+Default value: `'daemon'`
+
+##### <a name="group"></a>`group`
+
+Data type: `String`
+
+Group running powerman service
 
 Default value: `'daemon'`
 
