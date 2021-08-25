@@ -364,6 +364,24 @@
       
     </li>
   
+    <li>
+      
+        <span class='name'>group</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;daemon&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Group running powerman service</p>
+</div>
+      
+    </li>
+  
 </ul>
 
 
@@ -375,8 +393,6 @@
         <pre class="lines">
 
 
-36
-37
 38
 39
 40
@@ -495,10 +511,13 @@
 153
 154
 155
-156</pre>
+156
+157
+158
+159</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 36</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 38</span>
 
 class powerman (
   Enum[&#39;present&#39;, &#39;absent&#39;] $ensure = &#39;present&#39;,
@@ -516,6 +535,7 @@ class powerman (
   Hash $nodes    = {},
   Stdlib::Absolutepath $pid_dir = &#39;/var/run/powerman&#39;,
   String $user = &#39;daemon&#39;,
+  String $group = &#39;daemon&#39;,
 ) {
 
   if $ensure == &#39;present&#39; {
@@ -590,7 +610,7 @@ class powerman (
     file { $pid_dir:
       ensure  =&gt; &#39;directory&#39;,
       owner   =&gt; $user,
-      group   =&gt; &#39;root&#39;,
+      group   =&gt; $group,
       mode    =&gt; &#39;0755&#39;,
       require =&gt; Package[&#39;powerman&#39;],
       before  =&gt; Service[&#39;powerman&#39;],
