@@ -33,6 +33,8 @@
 #   Directory for PID file
 # @param user
 #   User running powerman service
+# @param group
+#   Group running powerman service
 class powerman (
   Enum['present', 'absent'] $ensure = 'present',
   Boolean $manage_epel = true,
@@ -49,6 +51,7 @@ class powerman (
   Hash $nodes    = {},
   Stdlib::Absolutepath $pid_dir = '/var/run/powerman',
   String $user = 'daemon',
+  String $group = 'daemon',
 ) {
 
   if $ensure == 'present' {
@@ -123,7 +126,7 @@ class powerman (
     file { $pid_dir:
       ensure  => 'directory',
       owner   => $user,
-      group   => 'root',
+      group   => $group,
       mode    => '0755',
       require => Package['powerman'],
       before  => Service['powerman'],
