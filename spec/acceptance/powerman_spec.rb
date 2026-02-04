@@ -26,7 +26,6 @@ describe 'powerman class:' do
       PP
 
       apply_manifest(pp, catch_failures: true)
-      on hosts, 'journalctl -u powerman -e --no-pager'
       apply_manifest(pp, catch_changes: true)
     end
 
