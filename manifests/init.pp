@@ -53,7 +53,6 @@ class powerman (
   String $user = 'daemon',
   String $group = 'daemon',
 ) {
-
   if $ensure == 'present' {
     $package_ensure = 'present'
     $cfg_ensure     = 'present'
@@ -155,5 +154,4 @@ class powerman (
     group   => 'root',
     mode    => '0644',
   }
-
 }

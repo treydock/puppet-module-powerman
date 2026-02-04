@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper_acceptance'
 
 describe 'powerman class:' do
@@ -10,9 +12,9 @@ describe 'powerman class:' do
     end
   end
 
-  context 'default parameters' do
+  context 'with default parameters' do
     it 'runs successfully' do
-      pp = <<-EOS
+      pp = <<-PP
       class { 'powerman': }
       powerman::device { 'bmc-compute01-ipmi':
         driver   => 'ipmipower',
@@ -22,7 +24,7 @@ describe 'powerman class:' do
         device => 'bmc-compute01-ipmi',
         port   => 'bmc-compute01',
       }
-      EOS
+      PP
 
       apply_manifest(pp, catch_failures: true)
       apply_manifest(pp, catch_changes: true)

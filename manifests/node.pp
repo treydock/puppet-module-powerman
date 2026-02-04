@@ -11,7 +11,6 @@ define powerman::node (
   Optional[String] $port = undef,
   String $order = '50',
 ) {
-
   include powerman
 
   concat::fragment { "powerman.conf.node.${name}":

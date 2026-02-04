@@ -8,7 +8,6 @@ define powerman::alias (
   String $nodes,
   String $order = '75'
 ) {
-
   include powerman
 
   concat::fragment { "powerman.conf.alias.${name}":

@@ -14,7 +14,6 @@ define powerman::device (
   Optional[String] $flags = undef,
   String $order = '25',
 ) {
-
   include powerman
 
   concat::fragment { "powerman.conf.device.${name}":
