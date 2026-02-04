@@ -1,10 +1,10 @@
 HOSTS:
-  debian9:
+  debian11:
     roles:
       - agent
-    platform: debian-9-amd64
+    platform: debian-11-amd64
     hypervisor: docker
-    image: debian:9
+    image: debian:11
     docker_preserve_image: true
     docker_cmd:
       - '/sbin/init'
@@ -18,7 +18,7 @@ HOSTS:
       - LANG=en_US.UTF-8
       - LANGUAGE=en_US.UTF-8
       - LC_ALL=en_US.UTF-8
-    docker_container_name: 'powerman-debian9'
+    docker_container_name: 'powerman-debian11'
 CONFIG:
   log_level: debug
   type: foss

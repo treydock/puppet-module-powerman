@@ -1,26 +1,26 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'powerman' do
   on_supported_os.each do |os, facts|
-    context "on #{os}" do
+    context "when #{os}" do
       let(:facts) do
         facts
       end
 
       let(:user) do
-        case facts[:os]['family']
-        when 'Debian'
+        if facts[:os]['family'] == 'Debian' && ['11', '22.04'].include?(facts[:os]['release']['major'].to_s)
           'powerman'
-        when 'RedHat'
+        else
           'daemon'
         end
       end
 
       let(:group) do
-        case facts[:os]['family']
-        when 'Debian'
+        if facts[:os]['family'] == 'Debian' && ['11', '22.04'].include?(facts[:os]['release']['major'].to_s)
           'root'
-        when 'RedHat'
+        else
           'daemon'
         end
       end
@@ -86,6 +86,7 @@ describe 'powerman' do
         it { is_expected.not_to contain_concat('/etc/powerman/powerman.conf') }
         it { is_expected.not_to contain_concat__fragment('powerman.conf.header') }
         it { is_expected.not_to contain_file('/var/run/powerman') }
+
         it do
           is_expected.to contain_service('powerman').only_with(
             ensure: 'stopped',
@@ -96,9 +97,10 @@ describe 'powerman' do
             require: 'Package[powerman]',
           )
         end
+
         it { is_expected.to contain_file('/etc/profile.d/powerman.sh').with_ensure('file') }
         it { is_expected.to contain_file('/etc/profile.d/powerman.csh').with_ensure('file') }
       end
-    end # end context
-  end # end on_supported_os loop
-end # end describe
+    end
+  end
+end
