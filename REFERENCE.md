@@ -10,9 +10,9 @@
 
 ### Defined types
 
-* [`powerman::alias`](#powermanalias): Manage powerman device alias
-* [`powerman::device`](#powermandevice): Manage powerman device
-* [`powerman::node`](#powermannode): Manage powerman node
+* [`powerman::alias`](#powerman--alias): Manage powerman device alias
+* [`powerman::device`](#powerman--device): Manage powerman device
+* [`powerman::node`](#powerman--node): Manage powerman node
 
 ## Classes
 
@@ -32,24 +32,24 @@ include powerman
 
 The following parameters are available in the `powerman` class:
 
-* [`ensure`](#ensure)
-* [`manage_epel`](#manage_epel)
-* [`server`](#server)
-* [`listen`](#listen)
-* [`powerman_server`](#powerman_server)
-* [`powerman_port`](#powerman_port)
-* [`tcpwrappers`](#tcpwrappers)
-* [`cfgfile`](#cfgfile)
-* [`driver_dir`](#driver_dir)
-* [`driver_list`](#driver_list)
-* [`aliases`](#aliases)
-* [`devices`](#devices)
-* [`nodes`](#nodes)
-* [`pid_dir`](#pid_dir)
-* [`user`](#user)
-* [`group`](#group)
+* [`ensure`](#-powerman--ensure)
+* [`manage_epel`](#-powerman--manage_epel)
+* [`server`](#-powerman--server)
+* [`listen`](#-powerman--listen)
+* [`powerman_server`](#-powerman--powerman_server)
+* [`powerman_port`](#-powerman--powerman_port)
+* [`tcpwrappers`](#-powerman--tcpwrappers)
+* [`cfgfile`](#-powerman--cfgfile)
+* [`driver_dir`](#-powerman--driver_dir)
+* [`driver_list`](#-powerman--driver_list)
+* [`aliases`](#-powerman--aliases)
+* [`devices`](#-powerman--devices)
+* [`nodes`](#-powerman--nodes)
+* [`pid_dir`](#-powerman--pid_dir)
+* [`user`](#-powerman--user)
+* [`group`](#-powerman--group)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-powerman--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
@@ -57,23 +57,23 @@ Module ensure property
 
 Default value: `'present'`
 
-##### <a name="manage_epel"></a>`manage_epel`
+##### <a name="-powerman--manage_epel"></a>`manage_epel`
 
 Data type: `Boolean`
 
 Boolean that determines if EPEL repo should be managed
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="server"></a>`server`
+##### <a name="-powerman--server"></a>`server`
 
 Data type: `Boolean`
 
 Boolean that sets host to act as powerman server
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="listen"></a>`listen`
+##### <a name="-powerman--listen"></a>`listen`
 
 Data type: `Stdlib::IP::Address`
 
@@ -81,7 +81,7 @@ Address to listen on
 
 Default value: `'127.0.0.1'`
 
-##### <a name="powerman_server"></a>`powerman_server`
+##### <a name="-powerman--powerman_server"></a>`powerman_server`
 
 Data type: `Stdlib::Host`
 
@@ -89,7 +89,7 @@ Hostname of powerman server
 
 Default value: `$facts['networking']['fqdn']`
 
-##### <a name="powerman_port"></a>`powerman_port`
+##### <a name="-powerman--powerman_port"></a>`powerman_port`
 
 Data type: `Stdlib::Port`
 
@@ -97,15 +97,15 @@ The port of powerman server
 
 Default value: `10101`
 
-##### <a name="tcpwrappers"></a>`tcpwrappers`
+##### <a name="-powerman--tcpwrappers"></a>`tcpwrappers`
 
 Data type: `Optional[Boolean]`
 
 Enable tcpwrappers support
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="cfgfile"></a>`cfgfile`
+##### <a name="-powerman--cfgfile"></a>`cfgfile`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -113,7 +113,7 @@ Path to powerman.conf
 
 Default value: `'/etc/powerman/powerman.conf'`
 
-##### <a name="driver_dir"></a>`driver_dir`
+##### <a name="-powerman--driver_dir"></a>`driver_dir`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -121,7 +121,7 @@ Driver directory
 
 Default value: `'/etc/powerman'`
 
-##### <a name="driver_list"></a>`driver_list`
+##### <a name="-powerman--driver_list"></a>`driver_list`
 
 Data type: `Array`
 
@@ -129,7 +129,7 @@ List of drivers to load
 
 Default value: `['powerman','ipmipower']`
 
-##### <a name="aliases"></a>`aliases`
+##### <a name="-powerman--aliases"></a>`aliases`
 
 Data type: `Hash`
 
@@ -137,7 +137,7 @@ Hash of aliases to pass to `powerman::alias`
 
 Default value: `{}`
 
-##### <a name="devices"></a>`devices`
+##### <a name="-powerman--devices"></a>`devices`
 
 Data type: `Hash`
 
@@ -145,7 +145,7 @@ Hash of devices to pass to `powerman::device`
 
 Default value: `{}`
 
-##### <a name="nodes"></a>`nodes`
+##### <a name="-powerman--nodes"></a>`nodes`
 
 Data type: `Hash`
 
@@ -153,7 +153,7 @@ Hash of nodes to pass to `powerman::node`
 
 Default value: `{}`
 
-##### <a name="pid_dir"></a>`pid_dir`
+##### <a name="-powerman--pid_dir"></a>`pid_dir`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -161,7 +161,7 @@ Directory for PID file
 
 Default value: `'/var/run/powerman'`
 
-##### <a name="user"></a>`user`
+##### <a name="-powerman--user"></a>`user`
 
 Data type: `String`
 
@@ -169,7 +169,7 @@ User running powerman service
 
 Default value: `'daemon'`
 
-##### <a name="group"></a>`group`
+##### <a name="-powerman--group"></a>`group`
 
 Data type: `String`
 
@@ -179,7 +179,7 @@ Default value: `'daemon'`
 
 ## Defined types
 
-### <a name="powermanalias"></a>`powerman::alias`
+### <a name="powerman--alias"></a>`powerman::alias`
 
 Manage powerman device alias
 
@@ -187,16 +187,16 @@ Manage powerman device alias
 
 The following parameters are available in the `powerman::alias` defined type:
 
-* [`nodes`](#nodes)
-* [`order`](#order)
+* [`nodes`](#-powerman--alias--nodes)
+* [`order`](#-powerman--alias--order)
 
-##### <a name="nodes"></a>`nodes`
+##### <a name="-powerman--alias--nodes"></a>`nodes`
 
 Data type: `String`
 
 Nodes for the alias
 
-##### <a name="order"></a>`order`
+##### <a name="-powerman--alias--order"></a>`order`
 
 Data type: `String`
 
@@ -204,7 +204,7 @@ Order in powerman.conf
 
 Default value: `'75'`
 
-### <a name="powermandevice"></a>`powerman::device`
+### <a name="powerman--device"></a>`powerman::device`
 
 Manage powerman device
 
@@ -212,32 +212,32 @@ Manage powerman device
 
 The following parameters are available in the `powerman::device` defined type:
 
-* [`driver`](#driver)
-* [`endpoint`](#endpoint)
-* [`flags`](#flags)
-* [`order`](#order)
+* [`driver`](#-powerman--device--driver)
+* [`endpoint`](#-powerman--device--endpoint)
+* [`flags`](#-powerman--device--flags)
+* [`order`](#-powerman--device--order)
 
-##### <a name="driver"></a>`driver`
+##### <a name="-powerman--device--driver"></a>`driver`
 
 Data type: `String`
 
 The device driver
 
-##### <a name="endpoint"></a>`endpoint`
+##### <a name="-powerman--device--endpoint"></a>`endpoint`
 
 Data type: `String`
 
 Device endpoint
 
-##### <a name="flags"></a>`flags`
+##### <a name="-powerman--device--flags"></a>`flags`
 
 Data type: `Optional[String]`
 
 Device flags
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="order"></a>`order`
+##### <a name="-powerman--device--order"></a>`order`
 
 Data type: `String`
 
@@ -245,7 +245,7 @@ Order in powerman.conf
 
 Default value: `'25'`
 
-### <a name="powermannode"></a>`powerman::node`
+### <a name="powerman--node"></a>`powerman::node`
 
 Manage powerman node
 
@@ -253,25 +253,25 @@ Manage powerman node
 
 The following parameters are available in the `powerman::node` defined type:
 
-* [`device`](#device)
-* [`port`](#port)
-* [`order`](#order)
+* [`device`](#-powerman--node--device)
+* [`port`](#-powerman--node--port)
+* [`order`](#-powerman--node--order)
 
-##### <a name="device"></a>`device`
+##### <a name="-powerman--node--device"></a>`device`
 
 Data type: `String`
 
 Node device
 
-##### <a name="port"></a>`port`
+##### <a name="-powerman--node--port"></a>`port`
 
 Data type: `Optional[String]`
 
 Node port
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="order"></a>`order`
+##### <a name="-powerman--node--order"></a>`order`
 
 Data type: `String`
 

@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v2.0.0](https://github.com/treydock/puppet-module-powerman/tree/v2.0.0) (2026-02-04)
+
+[Full Changelog](https://github.com/treydock/puppet-module-powerman/compare/v1.1.0...v2.0.0)
+
+### Changed
+
+- Major updates - read description [\#5](https://github.com/treydock/puppet-module-powerman/pull/5) ([treydock](https://github.com/treydock))
+
 ## [v1.1.0](https://github.com/treydock/puppet-module-powerman/tree/v1.1.0) (2021-08-25)
 
 [Full Changelog](https://github.com/treydock/puppet-module-powerman/compare/v1.0.0...v1.1.0)
