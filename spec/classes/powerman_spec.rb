@@ -10,19 +10,17 @@ describe 'powerman' do
       end
 
       let(:user) do
-        case facts[:os]['family']
-        when 'Debian'
+        if facts[:os]['family'] == 'Debian' && ['11', '22.04'].include?(facts[:os]['release']['major'].to_s)
           'powerman'
-        when 'RedHat'
+        else
           'daemon'
         end
       end
 
       let(:group) do
-        case facts[:os]['family']
-        when 'Debian'
+        if facts[:os]['family'] == 'Debian' && ['11', '22.04'].include?(facts[:os]['release']['major'].to_s)
           'root'
-        when 'RedHat'
+        else
           'daemon'
         end
       end

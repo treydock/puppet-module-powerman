@@ -4,10 +4,9 @@ require 'spec_helper_acceptance'
 
 describe 'powerman class:' do
   let(:user) do
-    case fact('os.family')
-    when 'Debian'
+    if fact('os.family') == 'Debian' && ['11', '22.04'].include?(fact('os.release.major'))
       'powerman'
-    when 'RedHat'
+    else
       'daemon'
     end
   end
